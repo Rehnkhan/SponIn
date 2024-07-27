@@ -1,0 +1,8 @@
+<h2>Campaigns List</h2>
+<ul>
+    {% for campaign in campaigns %}
+    <li>{{ campaign.name }} - {{ campaign.description }}</li>
+    {% empty %}
+    <li>No campaigns found.</li>
+    {% endfor %}
+</ul>

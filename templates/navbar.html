@@ -1,0 +1,75 @@
+<nav class="navbar mb-2 shadow-lg rounded-box">
+    <!-- Drawer button -->
+    <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+    <div class="flex-none md:hidden">
+        <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                class="inline-block w-6 h-6 stroke-current">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                </path>
+            </svg>
+        </label>
+    </div>
+    <!-- Website Title -->
+
+    <div class="flex-none px-2 mx-2">
+        <span class="text-lg font-bold">SponIn</span>
+    </div>
+
+    <!-- Navbar Links -->
+    <div class="flex-1 px-2 mx-2 justify-center">
+        <div class="items-stretch hidden md:flex">
+            <a class="btn btn-ghost btn-sm rounded-btn" href="#"> Home </a>
+            {% if not request.user.is_authenticated %}
+            <a class="btn btn-ghost btn-sm rounded-btn" href="{% url 'main:login' %}"> Login </a>
+            <div class="dropdown dropdown-end z-40">
+                <div tabindex="0" class="btn btn-ghost btn-sm rounded-btn">Register</div>
+                <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+                    <li><a class="btn btn-ghost btn-sm rounded-btn" href="{% url 'sponsor:register' %}">Sponsor
+                            Registration</a></li>
+                    <li><a class="btn btn-ghost btn-sm rounded-btn" href="{% url 'influencer:register' %}">Influencer
+                            Registration</a></li>
+                </ul>
+            </div>
+            {% else %}
+            <div class="dropdown dropdown-end z-40">
+                <div tabindex="0" class="btn btn-ghost btn-sm rounded-btn">My Account</div>
+                <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+                    <li><a class="btn btn-ghost btn-sm rounded-btn" href="{% url 'main:logout' %}">Logout</a></li>
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Drawer begins here -->
+    <div class="drawer-side z-50">
+        <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
+        <ul class="menu p-4 w-60 min-h-full bg-base-100 text-base-content overflow-y-scroll">
+            <!-- Sidebar content here -->
+            <div class="flex-none px-2 mx-2">
+                <span class="text-lg font-bold">SponIn</span>
+            </div>
+            <div class="divider"></div>
+            <li><a href="#"> Home </a></li>
+            {% if not request.user.is_authenticated %}
+            <li><a href="{% url 'main:login' %}"> Login </a></li>
+            <li><a href="#">Sponsor Registration</a></li>
+            <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+                <li><a class="btn btn-ghost btn-sm rounded-btn" href="{% url 'sponsor:register' %}">Sponsor
+                        Registration</a></li>
+                <li><a class="btn btn-ghost btn-sm rounded-btn" href="{% url 'influencer:register' %}">Influencer
+                        Registration</a></li>
+            </ul>
+            {% else %}
+            <div tabindex="0" class="collapse collapse-arrow">
+                <input type="checkbox" />
+                <div class="collapse-title font-normal">My Account and Settings</div>
+                <ul class="collapse-content menu">
+                    <li><a href="{% url 'main:logout' %}">Logout</a></li>
+                </ul>
+            </div>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
