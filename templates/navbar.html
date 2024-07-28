@@ -17,9 +17,9 @@
     </div>
 
     <!-- Navbar Links -->
-    <div class="flex-1 px-2 mx-2 justify-center">
+    <div class="flex-1 px-2 mx-2 justify-end">
         <div class="items-stretch hidden md:flex">
-            <a class="btn btn-ghost btn-sm rounded-btn" href="#"> Home </a>
+            <a class="btn btn-ghost btn-sm rounded-btn" href="{% url 'main:home' %}"> Home </a>
             {% if not request.user.is_authenticated %}
             <a class="btn btn-ghost btn-sm rounded-btn" href="{% url 'main:login' %}"> Login </a>
             <div class="dropdown dropdown-end z-40">
@@ -32,6 +32,10 @@
                 </ul>
             </div>
             {% else %}
+            {% if request.user.sponsor %}
+            <a class="btn btn-ghost btn-sm rounded-btn" href="{% url 'sponsor:find_influencers' %}"> Find
+                Influencers</a>
+            {% endif %}
             <div class="dropdown dropdown-end z-40">
                 <div tabindex="0" class="btn btn-ghost btn-sm rounded-btn">My Account</div>
                 <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
@@ -39,6 +43,40 @@
                 </ul>
             </div>
             {% endif %}
+        </div>
+        <!-- Theme button and dropdown -->
+        <div class="flex items-stretch">
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" class="m-1 btn">Change Theme</div>
+                <ul tabindex="0"
+                    class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52 max-h-80 flex flex-col flex-nowrap overflow-x-hidden overflow-y-scroll z-40"
+                    data-choose-theme="">
+                    <li><a data-set-theme="light">light</a></li>
+                    <li><a data-set-theme="dark">dark</a></li>
+                    <li><a data-set-theme="cupcake">cupcake</a></li>
+                    <li><a data-set-theme="bumblebee">bumblebee</a></li>
+                    <li><a data-set-theme="emerald">emerald</a></li>
+                    <li><a data-set-theme="corporate">corporate</a></li>
+                    <li><a data-set-theme="synthwave">synthwave</a></li>
+                    <li><a data-set-theme="retro">retro</a></li>
+                    <li><a data-set-theme="cyberpunk">cyberpunk</a></li>
+                    <li><a data-set-theme="valentine">valentine</a></li>
+                    <li><a data-set-theme="halloween">halloween</a></li>
+                    <li><a data-set-theme="garden">garden</a></li>
+                    <li><a data-set-theme="forest">forest</a></li>
+                    <li><a data-set-theme="aqua">aqua</a></li>
+                    <li><a data-set-theme="lofi">lofi</a></li>
+                    <li><a data-set-theme="pastel">pastel</a></li>
+                    <li><a data-set-theme="fantasy">fantasy</a></li>
+                    <li><a data-set-theme="wireframe">wireframe</a></li>
+                    <li><a data-set-theme="black">black</a></li>
+                    <li><a data-set-theme="luxury">luxury</a></li>
+                    <li><a data-set-theme="dracula">dracula</a></li>
+                    <li><a data-set-theme="cmyk">cmyk</a></li>
+                    <li><a data-set-theme="autumn">autumn</a></li>
+                    <li><a data-set-theme="business">business</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -62,6 +100,10 @@
                         Registration</a></li>
             </ul>
             {% else %}
+            {% if request.user.sponsor %}
+            <li><a class="btn btn-ghost btn-sm rounded-btn" href="{% url 'sponsor:find_influencers' %}"> Find
+                    Influencers</a></li>
+            {% endif %}
             <div tabindex="0" class="collapse collapse-arrow">
                 <input type="checkbox" />
                 <div class="collapse-title font-normal">My Account and Settings</div>

@@ -6,11 +6,11 @@ from django.contrib.auth import views as auth_views
 app_name = 'main'
 
 urlpatterns = [
-    # path('login/', views.loginUser, name='login'),
-    # path('login/',views.loginUser, name='login'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logoutUser, name='logout'),
-    # path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    # path('campaigns/create/', create_campaign, name='create_campaign'),
-    # path('campaigns/', campaign_list, name='campaign_list'),
+    path('campaigns', views.campaign_view, name='campaign_detail'),
+    path('home/', views.home, name='home'),
+    path('adrequest_create/', views.adrequest_create, name='adrequest_create'),
+    path('negotiate/', views.negotiate, name='negotiate'),
+
 ]

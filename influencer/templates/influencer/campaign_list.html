@@ -1,0 +1,24 @@
+<h1>Available Campaigns</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Sponsor</th>
+            <th>Description</th>
+            <th>Budget</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for campaign in campaigns %}
+        <tr>
+            <td>{{ campaign.sponsor.company_name }}</td>
+            <td>{{ campaign.description }}</td>
+            <td>{{ campaign.budget }}</td>
+            <td>
+                <a href="{% url 'sponsor:campaign_detail' campaign.pk %}">View</a> |
+                <a href="{% url 'apply_for_campaign' campaign.pk %}">Apply</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

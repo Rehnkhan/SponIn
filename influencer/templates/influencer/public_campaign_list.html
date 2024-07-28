@@ -1,0 +1,19 @@
+<h1>Public Campaigns</h1>
+<div class="flex flex-wrap justify-center gap-8">
+    {% for campaign in campaigns %}
+    <div class="card bg-base-100 shadow-xl">
+        <figure>
+            <img src="{{ campaign.campaign_image.url }}" alt="{{ campaign.name }}" />
+        </figure>
+        <div class="card-body">
+            <h2 class="card-title">
+                {{ campaign.name }}
+                <div class="badge badge-secondary">${{ campaign.budget }}</div>
+            </h2>
+            <p>{{ campaign.description }}</p>
+            <div class="card-actions justify-end">
+                <a href="{% url 'public_campaign_detail' campaign.pk %}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}

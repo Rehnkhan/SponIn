@@ -1,0 +1,7 @@
+<h1>Apply for Campaign</h1>
+<p>Are you sure you want to apply for this campaign?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Apply</button>
+</form>
+<a href="{% url 'campaign_detail' campaign.pk %}">Cancel</a>

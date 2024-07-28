@@ -1,0 +1,19 @@
+<!-- templates/campaigns/campaign_list.html -->
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Campaigns</h1>
+<ul>
+    {% for campaign in campaigns %}
+    <li>
+        {{ campaign.name }}
+        <a href="{% url 'campaign_detail' campaign.pk %}">View</a>
+        <form method="post" action="{% url 'campaign_detail' campaign.pk %}">
+            {% csrf_token %}
+            <button type="submit" name="accept">Accept</button>
+            <button type="submit" name="reject">Reject</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

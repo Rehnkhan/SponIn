@@ -1,0 +1,9 @@
+<h1>Ad Request Detail</h1>
+<p><strong>Influencer:</strong> {{ adrequest.influencer.username }}</p>
+<p><strong>Sponsor:</strong> {{ adrequest.sponsor.name }}</p>
+<p><strong>Status:</strong> {{ adrequest.status }}</p>
+<p><strong>Created At:</strong> {{ adrequest.created_at }}</p>
+<p><strong>Updated At:</strong> {{ adrequest.updated_at }}</p>
+<a href="{% url 'adrequest_update' adrequest.pk %}">Edit</a> |
+<a href="{% url 'adrequest_delete' adrequest.pk %}">Delete</a> |
+<a href="{% url 'adrequest_list' %}">Back to List</a>

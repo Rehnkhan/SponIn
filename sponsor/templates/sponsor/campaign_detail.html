@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+{% block content %}
+<p>{{ campaign.name }}</p>
+
+<p>{{ campaign.description }}</p>
+<p>{{ campaign.start_date }}</p>
+<p>{{ campaign.end_date }}</p>
+<p>{{ campaign.status }}</p>
+<p>{{ campaign.budget }}</p>
+<img src="{{ campaign.campaign_image.url }}" alt="Campaign Image">
+
+<button class="btn" onclick="adReqModal.showModal()">New Ad Request</button>
+<dialog id="adReqModal" class="modal">
+    <div class="modal-box">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% load widget_tweaks %}
+            <!-- Name Field -->
+            <div class="label">
+                <span class="label-text-alt">Ad Request Name:</span>
+            </div>
+            <label class="input input-bordered flex items-center gap-2">
+                {% render_field form.name class="grow" placeholder="Campaign Name" %}
+            </label>
+            <small class="text-error">{{ form.name.errors }}</small>
+
+            <!-- Requirements Field -->
+            <div class="label">
+                <span class="label-text-alt">Enter the requirements of the campaign</span>
+            </div>
+            {{ form.requirements }}
+            <small class="text-error">{{ form.requirements.errors }}</small>
+
+            <!-- Amount field -->
+            <div class="label">
+                <span class="label-text-alt">Enter the amount offered:</span>
+            </div>
+            <label class="input input-bordered flex items-center gap-2">
+                {% render_field form.amount class="grow" placeholder="123456" %}
+            </label>
+            <small class="text-error">{{ form.amount.errors }}</small>
+
+            <!-- Message field -->
+            <div class="label">
+                <span class="label-text-alt">Enter the message to be sent:</span>
+            </div>
+            <label class="input input-bordered flex items-center gap-2">
+                {% render_field form.msg class="grow" placeholder="(Optional)" %}
+            </label>
+            <small class="text-error">{{ form.msg.errors }}</small>
+
+            <!-- Username field -->
+            <div class="label">
+                <span class="label-text-alt">Enter the username of the influencer:</span>
+            </div>
+            <label class="input input-bordered flex items-center gap-2">
+                {% render_field form.username class="grow" placeholder="Username" %}
+            </label>
+            <small class="text-error">{{ form.budget.errors }}</small>
+            <button type="submit" class="btn btn-accent btn-block my-2">Create Ad Request</button>
+        </form>
+    </div>
+</dialog>
+{% endblock %}

@@ -1,0 +1,29 @@
+<h1>Ad Requests</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Influencer</th>
+            <th>Sponsor</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for adrequest in adrequests %}
+        <tr>
+            <td>{{ adrequest.influencer.username }}</td>
+            <td>{{ adrequest.sponsor.name }}</td>
+            <td>{{ adrequest.status }}</td>
+            <td>{{ adrequest.created_at }}</td>
+            <td>{{ adrequest.updated_at }}</td>
+            <td>
+                <a href="{% url 'adrequest_detail' adrequest.pk %}">View</a> |
+                <a href="{% url 'adrequest_update' adrequest.pk %}">Edit</a> |
+                <a href="{% url 'adrequest_delete' adrequest.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

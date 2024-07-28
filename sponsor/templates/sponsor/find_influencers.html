@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="text-4xl font-bold">Find Influencers</div>
+<form method="get">
+    <input type="text" id="category" name="category" placeholder="Category"
+        class="input input-bordered input-sm w-full max-w-sm my-1" value="{{ request.GET.category }}">
+
+    <input type="text" id="niche" name="niche" placeholder="niche"
+        class="my-1 input input-bordered input-sm w-full max-w-sm" value="{{ request.GET.niche }}">
+
+    <input type="number" id="min_reach" name="min_reach" class="input input-bordered input-sm w-full max-w-sm my-1"
+        placeholder="Min Reach" value="{{ request.GET.min_reach }}">
+
+    <input type="number" id="max_reach" name="max_reach" class="my-1 input input-bordered input-sm w-full max-w-sm"
+        value="{{ request.GET.max_reach }}" placeholder="Max Reach">
+
+    <button type="submit" class="btn btn-sm btn-success">Search</button>
+</form>
+
+<ul>
+    <div class="overflow-x-auto">
+        <table class="table table-zebra">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Niche</th>
+                    <th>Reach</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for influencer in influencers %}
+                <tr>
+                    <td>
+                        <div class="flex items-center gap-3">
+                            <div class="avatar">
+                                <div class="mask mask-squircle h-12 w-12">
+                                    <img src="{{ influencer.myuser.profile_picture.url }}" />
+                                </div>
+                            </div>
+                            <div>
+                                <div class="font-bold">{{ influencer.myuser.first_name }}, {{influencer.user.last_name}}
+                                </div>
+                                <div class="text-sm opacity-50">{{ influencer.myuser.username }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        {{ influencer.category }}
+                    </td>
+                    <td>
+                        {{ influencer.niche }}
+                    </td>
+                    <td>
+                        {{ influencer.reach }}
+                    </td>
+                    <th>
+                        <a href="{% url 'sponsor:sponsor_campaign_list' influencer.pk %}">details</a>
+                    </th>
+                </tr>
+                {% empty %}
+                <li>No influencers found.</li>
+                {% endfor %}
+            </tbody>
+            </tbody>
+        </table>
+    </div>
+
+</ul>
+{% endblock %}

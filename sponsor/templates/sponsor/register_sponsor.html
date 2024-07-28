@@ -8,7 +8,7 @@
     </ul>
 </div>
 <div class="flex justify-center p-2">
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <!-- First Name Field -->
         <div class="label">
@@ -122,6 +122,13 @@
             <span class="label-text-alt">Enter your total budget. You can edit this later.</span>
         </div>
         <small class="text-error">{{ form.industry.errors }}</small>
+
+        <!-- Profile Picture -->
+        <div class="label">
+            <span class="label-text-alt">Enter your profile picture:</span>
+        </div>
+        {{ form.profile_picture }}
+        <small class="text-error">{{ form.profile_picture.errors }}</small>
 
         <button type="submit" class="btn btn-accent btn-block my-2">Register</button>
     </form>

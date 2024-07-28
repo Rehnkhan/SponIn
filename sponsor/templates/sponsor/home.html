@@ -1,0 +1,127 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="text-4xl font-bold">Welcome, {{ user.username }}!</div>
+<div class="mt-2 mb-4">
+    <button onclick="createCampaignModal.showModal()" class="btn btn-accent">Create Campaign</button>
+</div>
+<div class="overflow-x-auto">
+    <table class="table table-zebra">
+        <!-- head -->
+        <thead>
+            <tr>
+                <th>Campaign Name</th>
+                <th>Description</th>
+                <th>Budget</th>
+                <th>End Date</th>
+                <th>Link</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- row 1 -->
+            {% for campaign in campaigns %}
+            <tr>
+                <td>
+                    <div class="flex items-center gap-3">
+                        <div class="avatar">
+                            <div class="mask mask-squircle h-12 w-12">
+                                <a href="{% url 'sponsor:sponsor_campaign_list' campaign.pk %}"><img
+                                        src="{{ campaign.campaign_image.url }}" /></a>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="font-bold">{{ campaign.name }}</div>
+                            <div class="text-sm opacity-50">{{ campaign.sponsor.company_name }}</div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    {{ campaign.description|truncatechars:50 }}
+                </td>
+                <td>
+                    ${{ campaign.budget }}
+                </td>
+                <td>
+                    {{ campaign.end_date }}
+                </td>
+                <th>
+                    <a href="{% url 'sponsor:sponsor_campaign_list' campaign.pk %}">details</a>
+                </th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Create Campaign Modal -->
+<dialog id="createCampaignModal" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% load widget_tweaks %}
+            <!-- Campaign Name Field -->
+            <div class="label">
+                <span class="label-text-alt">Campaign Name:</span>
+            </div>
+            <label class="input input-bordered flex items-center gap-2">
+                {% render_field form.name class="grow" placeholder="Campaign Name" %}
+            </label>
+            <small class="text-error">{{ form.name.errors }}</small>
+
+            <!-- Description Field -->
+            <div class="label">
+                <span class="label-text-alt">Enter the description of the campaign</span>
+            </div>
+            {{ form.description }}
+            <small class="text-error">{{ form.descriptions.errors }}</small>
+
+            <!-- Start Date field -->
+            <div class="label">
+                <span class="label-text-alt">Enter the start date:</span>
+            </div>
+            <label class="input input-bordered flex items-center gap-2">
+                {% render_field form.start_date class="grow" placeholder="Start Date" %}
+            </label>
+            <small class="text-error">{{ form.start_date.errors }}</small>
+
+            <!-- End Date field -->
+            <div class="label">
+                <span class="label-text-alt">Enter the end date:</span>
+            </div>
+            <label class="input input-bordered flex items-center gap-2">
+                {% render_field form.end_date class="grow" placeholder="End Date" %}
+            </label>
+            <small class="text-error">{{ form.end_date.errors }}</small>
+
+            <!-- Budget field -->
+            <div class="label">
+                <span class="label-text-alt">Enter your bugdet for this campaign:</span>
+            </div>
+            <label class="input input-bordered flex items-center gap-2">
+                {% render_field form.budget class="grow" placeholder="Budget: 123456" %}
+            </label>
+            <small class="text-error">{{ form.budget.errors }}</small>
+
+            <!-- Visibility -->
+            <div class="label">
+                <span class="label-text-alt">Enter the visiblity:</span>
+            </div>
+            {{ form.visibility }}
+            <small class="text-error">{{ form.visibliity.errors }}</small>
+
+            <!-- Campaign Image -->
+            <div class="label">
+                <span class="label-text-alt">Enter the image of the campaign:</span>
+            </div>
+            {{ form.campaign_image }}
+            <small class="text-error">{{ form.campaign_image.errors }}</small>
+            <button type="submit" class="btn btn-accent btn-block my-2">Create Campaign</button>
+        </form>
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn">Close</button>
+            </form>
+        </div>
+    </div>
+</dialog>
+{% endblock %}
